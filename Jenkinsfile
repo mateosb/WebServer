@@ -5,15 +5,15 @@ pipeline {
       parallel {
         stage('Directorio') {
           steps {
-            sh 'powershell "Dir" '
+            sh 'ls -la '
           }
         }
 
         stage('Versiones') {
           steps {
-            sh '''powershell "docker --version"
+            sh '''docker --version
 '''
-            sh 'powershell "git --version"'
+            sh 'git --version'
           }
         }
 
@@ -26,7 +26,7 @@ pipeline {
       }
     }
 
-    stage('') {
+    stage('error') {
       steps {
         echo '"Solo imprime las versiones"'
       }
