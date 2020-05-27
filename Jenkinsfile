@@ -34,14 +34,14 @@ pipeline {
     stage('Imagen') {
       steps {
         echo 'Creando imagen'
-        powershell 'docker build -t mateosb/webserver:v5 .'
+        powershell 'docker build -t mateosb/webserver:v1 .'
       }
     }
 
     stage('Contenedor ') {
       steps {
         powershell(script: 'docker images', returnStatus: true, returnStdout: true)
-        powershell 'docker run -d --name WebServerCI -p 80:80 mateosb/webserver:v5'
+        powershell 'docker run -d --name WebServerCI -p 80:80 mateosb/webserver:v1'
       }
     }
 
@@ -54,7 +54,7 @@ pipeline {
 
     stage('Sube a Docker hub') {
       steps {
-        powershell 'docker push mateosb/webserver:v5'
+        powershell 'docker push mateosb/webserver:v1'
       }
     }
 
