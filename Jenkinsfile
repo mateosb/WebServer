@@ -5,7 +5,7 @@ pipeline {
       parallel {
         stage('Directorio') {
           steps {
-            sh 'ls -la '
+            bat 'dir'
           }
         }
 
