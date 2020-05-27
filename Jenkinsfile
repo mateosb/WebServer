@@ -11,9 +11,8 @@ pipeline {
 
         stage('Versiones') {
           steps {
-            sh '''docker --version
-'''
-            sh 'git --version'
+            bat 'docker --version'
+            bat 'git --version'
           }
         }
 
