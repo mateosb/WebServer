@@ -45,8 +45,9 @@ pipeline {
       }
     }
 
-    stage('Estatus') {
+    stage('Login Docker Hub') {
       steps {
+        powershell 'docker login'
         echo 'Estatus del Contenedor'
         powershell 'docker ps'
       }
