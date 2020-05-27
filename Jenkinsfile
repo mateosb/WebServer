@@ -34,32 +34,33 @@ pipeline {
     stage('Imagen') {
       steps {
         echo 'Creando imagen'
-        powershell(script: 'docker build -t mateosb/webserver:v4 .', returnStatus: true, returnStdout: true)
+        powershell 'docker build -t mateosb/webserver:v5 .'
       }
     }
 
     stage('Contenedor ') {
       steps {
         powershell(script: 'docker images', returnStatus: true, returnStdout: true)
-        powershell(script: 'docker run -d --name WebServerCI -p 80:80 mateosb/webserver:v4', returnStatus: true, returnStdout: true)
+        powershell 'docker run -d --name WebServerCI -p 80:80 mateosb/webserver:v5'
       }
     }
 
     stage('Estatus') {
-      parallel {
-        stage('Estatus') {
-          steps {
-            echo 'Estatus del Contenedor'
-            powershell(script: 'docker ps', returnStatus: true, returnStdout: true)
-          }
-        }
+      steps {
+        echo 'Estatus del Contenedor'
+        powershell 'docker ps'
+      }
+    }
 
-        stage('Cierre de etapa') {
-          steps {
-            echo 'Contenedor ejecutandose'
-          }
-        }
+    stage('Sube a Docker hub') {
+      steps {
+        powershell 'docker push mateosb/webserver:v5'
+      }
+    }
 
+    stage('Mensaje de fin') {
+      steps {
+        echo 'Crear imagen, ejecutar en contenedor y subir a docker hub'
       }
     }
 
