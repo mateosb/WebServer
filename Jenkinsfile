@@ -5,14 +5,14 @@ pipeline {
       parallel {
         stage('Directorio') {
           steps {
-            sh 'ls -la'
+            powershell 'ls'
           }
         }
 
         stage('Versiones') {
           steps {
-            sh 'docker --version'
-            sh 'git --version'
+            powershell 'docker --version'
+            powershell 'git --version'
           }
         }
 
